@@ -45,10 +45,13 @@ class IntroPage extends StatelessWidget {
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 20.0),
-                      child: Container(
-                        height: 250,
-                        child: Image.network(
-                            'https://firebasestorage.googleapis.com/v0/b/comfy-4bb5a.appspot.com/o/comfy.png?alt=media&token=380b9dcf-cdd6-4fbe-9524-9ca7e35396ec'),
+                      child: Opacity(
+                        opacity: 0.75,
+                        child: Container(
+                          height: 250,
+                          child: Image.network(
+                              'https://firebasestorage.googleapis.com/v0/b/comfy-4bb5a.appspot.com/o/comfy.png?alt=media&token=380b9dcf-cdd6-4fbe-9524-9ca7e35396ec'),
+                        ),
                       ),
                     ),
                   ],

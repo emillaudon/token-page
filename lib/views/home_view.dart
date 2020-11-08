@@ -5,6 +5,7 @@ import 'package:flutter/scheduler.dart';
 import '../widgets/intro_page.dart';
 import '../widgets/icon_row.dart';
 import '../widgets/about_page.dart';
+import '../widgets/attribution_bar.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -29,6 +30,8 @@ class _HomeViewState extends State<HomeView> {
         animatedListKey.currentState.insertItem(1);
         _pageParts.add(AboutPage());
         animatedListKey.currentState.insertItem(2);
+        _pageParts.add(Attribution());
+        animatedListKey.currentState.insertItem(3);
       });
     });
   }
@@ -64,41 +67,49 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color(0xFF080338),
-        body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              stops: [0.1, 0.9, 1],
-              colors: [
-                Color(0xFF0f3057),
-                Color(0xFF00587a),
-                Color(0xFF00587a),
-              ],
+        body: Stack(children: [
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  fit: BoxFit.cover, image: AssetImage('images/bground.jpg')),
             ),
           ),
-          child: Column(children: [
-            Container(
-              height: MediaQuery.of(context).size.height,
-              child: Stack(children: [
-                AnimatedList(
-                  key: animatedListKey,
-                  initialItemCount: _pageParts.length,
-                  itemBuilder: (context, index, animation) {
-                    return FadeTransition(
-                      opacity: animation,
-                      child: _pageParts[index],
-                    );
-                  },
-                ),
-                NavBar(
-                  onTap: () {
-                    addItem(IconRow());
-                  },
-                ),
-              ]),
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                stops: [0.1, 0.9, 1],
+                colors: [
+                  Color(0xFF0f3057).withOpacity(0.95),
+                  Color(0xFF00587a).withOpacity(0.95),
+                  Color(0xFF00587a).withOpacity(0.95),
+                ],
+              ),
             ),
-          ]),
-        ));
+            child: Column(children: [
+              Container(
+                height: MediaQuery.of(context).size.height,
+                child: Stack(children: [
+                  AnimatedList(
+                    key: animatedListKey,
+                    initialItemCount: _pageParts.length,
+                    itemBuilder: (context, index, animation) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: _pageParts[index],
+                      );
+                    },
+                  ),
+                  NavBar(
+                    onTap: () {
+                      addItem(IconRow());
+                    },
+                  ),
+                ]),
+              ),
+            ]),
+          ),
+        ]));
   }
 }
